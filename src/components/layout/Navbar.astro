@@ -1,0 +1,36 @@
+---
+const links = [
+  { href: '#home', label: 'Home' },
+  { href: '#about', label: 'About' },
+  { href: '#projects', label: 'Projects' },
+  { href: '#skills', label: 'Skills' },
+  { href: '#experience', label: 'Experience' },
+  { href: '#contact', label: 'Contact' },
+];
+---
+
+<header class="sticky top-0 z-50 border-b border-white/10 bg-[#0b0f19]/80 backdrop-blur-xl">
+  <div class="section-container flex h-16 items-center justify-between">
+    <a href="#home" class="text-sm font-semibold tracking-[0.2em] uppercase">
+      TU NOMBRE
+    </a>
+
+    <nav class="hidden gap-6 md:flex">
+      {links.map((link) => (
+        <a
+          href={link.href}
+          class="text-sm text-slate-300 transition hover:text-white"
+        >
+          {link.label}
+        </a>
+      ))}
+    </nav>
+
+    <a
+      href="#contact"
+      class="rounded-full border border-white/15 px-4 py-2 text-sm font-medium transition hover:border-white/30 hover:bg-white/5"
+    >
+      Hablemos
+    </a>
+  </div>
+</header>
