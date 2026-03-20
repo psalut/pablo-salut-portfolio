@@ -1,0 +1,64 @@
+---
+const mockProjects = [
+  {
+    number: '01',
+    title: 'Vet&Cook',
+    description:
+      'A polished frontend-focused project with strong visual presentation and responsive UI decisions.',
+    stack: ['Angular', 'TypeScript', 'SCSS'],
+  },
+  {
+    number: '02',
+    title: 'Skills Tracker',
+    description:
+      'A full-stack monorepo application to showcase architecture, API integration and product thinking.',
+    stack: ['Angular', 'NestJS', 'Nx'],
+  },
+  {
+    number: '03',
+    title: 'Portfolio Website',
+    description:
+      'This portfolio itself, built to communicate both technical quality and design sensibility.',
+    stack: ['Astro', 'React', 'Tailwind'],
+  },
+];
+---
+
+<section id="projects" class="section-spacing">
+  <div class="section-container space-y-10">
+    <div class="space-y-4">
+      <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Projects</p>
+      <h2 class="text-3xl font-semibold md:text-5xl">Selected work</h2>
+      <p class="max-w-2xl text-base leading-7 text-slate-300">
+        Mock project cards to validate navigation, spacing and visual hierarchy.
+      </p>
+    </div>
+
+    <div class="grid gap-6">
+      {mockProjects.map((project) => (
+        <article class="card-surface rounded-3xl p-6 md:p-8">
+          <div class="grid gap-6 md:grid-cols-[120px_1fr]">
+            <div class="text-sm font-semibold tracking-[0.3em] text-slate-500">
+              {project.number}
+            </div>
+
+            <div class="space-y-4">
+              <h3 class="text-2xl font-semibold">{project.title}</h3>
+              <p class="max-w-2xl text-base leading-7 text-slate-300">
+                {project.description}
+              </p>
+
+              <div class="flex flex-wrap gap-3">
+                {project.stack.map((item) => (
+                  <span class="rounded-full border border-white/10 px-3 py-1 text-sm text-slate-300">
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </article>
+      ))}
+    </div>
+  </div>
+</section>
