@@ -1,15 +1,28 @@
 ---
 import MainLayout from '../layouts/MainLayout.astro';
-import Navbar from '../components/layout/Navbar.astro';
+import FloatingNavbar from '../components/layout/FloatingNavbar';
 import Hero from '../components/sections/Hero.astro';
+import About from '../components/sections/About.astro';
+import Projects from '../components/sections/Projects.astro';
+import Skills from '../components/sections/Skills.astro';
+import Experience from '../components/sections/Experience.astro';
+import Contact from '../components/sections/Contact.astro';
+
+
 ---
 
 <MainLayout
-  title="Tu Nombre | Frontend Developer"
-  description="Portfolio personal de desarrollador frontend."
+  title="Pablo Salut | Fullstack Developer"
+  description="Portfolio personal de desarrollador fullstack."
 >
-  <Navbar />
-  <main>
+  <main class="pb-28">
     <Hero />
+	<About />
+	<Projects />
+	<Skills />
+	<Experience />
+	<Contact />
   </main>
+
+  <FloatingNavbar client:load />
 </MainLayout>

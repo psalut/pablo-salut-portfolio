@@ -1,0 +1,59 @@
+---
+const capabilities = [
+  'Frontend Development',
+  'Component Architecture',
+  'Responsive Design',
+  'Design Systems',
+  'API Integration',
+  'Performance Optimization',
+];
+
+const tools = [
+  'Angular',
+  'React',
+  'TypeScript',
+  'JavaScript',
+  'Astro',
+  'Tailwind CSS',
+  'Node.js',
+  'Git',
+];
+---
+
+<section id="skills" class="section-spacing">
+  <div class="section-container space-y-10">
+    <div class="space-y-4">
+      <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Skills</p>
+      <h2 class="text-3xl font-semibold md:text-5xl">Skills & tools</h2>
+      <p class="max-w-2xl text-base leading-7 text-slate-300">
+        Mock content to test the navigation state and section transitions.
+      </p>
+    </div>
+
+    <div class="grid gap-6 lg:grid-cols-2">
+      <article class="card-surface rounded-3xl p-6 md:p-8">
+        <h3 class="mb-6 text-xl font-semibold">Capabilities</h3>
+
+        <div class="flex flex-wrap gap-3">
+          {capabilities.map((item) => (
+            <span class="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300">
+              {item}
+            </span>
+          ))}
+        </div>
+      </article>
+
+      <article class="card-surface rounded-3xl p-6 md:p-8">
+        <h3 class="mb-6 text-xl font-semibold">Tools</h3>
+
+        <div class="flex flex-wrap gap-3">
+          {tools.map((item) => (
+            <span class="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-300">
+              {item}
+            </span>
+          ))}
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
