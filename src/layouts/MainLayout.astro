@@ -11,6 +11,9 @@ const {
   title = 'Tu Nombre | Frontend Developer',
   description = 'Portfolio personal de desarrollador frontend.',
 } = Astro.props;
+
+const sourceCodeUrl = 'https://github.com/psalut';
+const cvUrl = '/cv.pdf';
 ---
 
 <!doctype html>
@@ -29,15 +32,218 @@ const {
       <div class="page-background__grid"></div>
       <div class="page-background__shade"></div>
     </div>
+    <div class="fixed-top-actions">
+      <a
+        class="fixed-top-actions__button"
+        href={sourceCodeUrl}
+        target="_blank"
+        rel="noreferrer"
+      >
+        <span>Source Code</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 1.25a10.75 10.75 0 0 0-3.4 20.95c.54.1.73-.23.73-.52v-1.85c-2.98.65-3.6-1.28-3.6-1.28-.49-1.23-1.18-1.56-1.18-1.56-.97-.66.08-.65.08-.65 1.07.08 1.64 1.1 1.64 1.1.95 1.63 2.49 1.16 3.1.89.1-.69.37-1.16.67-1.42-2.38-.27-4.88-1.19-4.88-5.29 0-1.17.42-2.13 1.1-2.88-.11-.27-.48-1.36.11-2.84 0 0 .9-.29 2.95 1.1a10.2 10.2 0 0 1 5.38 0c2.05-1.39 2.94-1.1 2.94-1.1.6 1.48.23 2.57.11 2.84.69.75 1.1 1.71 1.1 2.88 0 4.11-2.5 5.01-4.88 5.28.38.33.72.98.72 1.98v2.94c0 .29.19.62.74.52A10.75 10.75 0 0 0 12 1.25Z"
+          />
+        </svg>
+      </a>
+
+      <a
+        class="fixed-top-actions__button"
+        href={cvUrl}
+        download
+      >
+        <span>Download CV</span>
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path
+            fill="currentColor"
+            d="M12 3a1 1 0 0 1 1 1v8.59l2.3-2.3a1 1 0 1 1 1.4 1.42l-4 3.98a1 1 0 0 1-1.4 0l-4-3.98a1 1 0 1 1 1.4-1.42L11 12.6V4a1 1 0 0 1 1-1Zm-7 14a1 1 0 0 1 1 1v1h12v-1a1 1 0 1 1 2 0v2a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1v-2a1 1 0 0 1 1-1Z"
+          />
+        </svg>
+      </a>
+    </div>
     <slot />
     <script is:inline>
       (() => {
         const root = document.documentElement;
         const homeSection = document.getElementById("home");
+        const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
         if (!homeSection) {
           return;
         }
+
+        let activeScrollAnimation = 0;
+        let wheelAnimationFrame = 0;
+        let currentVirtualY = window.scrollY;
+        let targetVirtualY = window.scrollY;
+        let lastWheelTimestamp = 0;
+        const wheelSmoothEnabled = window.matchMedia("(pointer: fine)").matches;
+
+        const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
+        const easeOutQuint = (value) => 1 - Math.pow(1 - value, 5);
+
+        const getMaxScrollY = () => Math.max(
+          document.documentElement.scrollHeight - window.innerHeight,
+          0,
+        );
+
+        const clampScrollY = (value) => Math.min(Math.max(value, 0), getMaxScrollY());
+
+        const stopSmoothScroll = () => {
+          if (activeScrollAnimation) {
+            window.cancelAnimationFrame(activeScrollAnimation);
+            activeScrollAnimation = 0;
+          }
+        };
+
+        const stopWheelSmoothing = () => {
+          if (wheelAnimationFrame) {
+            window.cancelAnimationFrame(wheelAnimationFrame);
+            wheelAnimationFrame = 0;
+          }
+        };
+
+        const syncVirtualScroll = () => {
+          currentVirtualY = window.scrollY;
+          targetVirtualY = window.scrollY;
+        };
+
+        const smoothScrollTo = (targetY) => {
+          stopSmoothScroll();
+          stopWheelSmoothing();
+
+          const startY = window.scrollY;
+          const clampedTargetY = clampScrollY(targetY);
+          const distance = clampedTargetY - startY;
+
+          if (Math.abs(distance) < 1) {
+            window.scrollTo(0, clampedTargetY);
+            syncVirtualScroll();
+            return;
+          }
+
+          const duration = Math.min(2000, Math.max(1100, Math.abs(distance) * 1.05));
+          const startTime = performance.now();
+
+          const step = (currentTime) => {
+            const elapsed = currentTime - startTime;
+            const progress = Math.min(elapsed / duration, 1);
+            const easedProgress = easeOutQuint(progress);
+
+            window.scrollTo(0, startY + distance * easedProgress);
+
+            if (progress < 1) {
+              activeScrollAnimation = window.requestAnimationFrame(step);
+              return;
+            }
+
+            window.scrollTo(0, clampedTargetY);
+            activeScrollAnimation = 0;
+            syncVirtualScroll();
+          };
+
+          activeScrollAnimation = window.requestAnimationFrame(step);
+        };
+
+        const animateWheelScroll = () => {
+          const distance = targetVirtualY - currentVirtualY;
+
+          if (Math.abs(distance) < 0.25) {
+            currentVirtualY = targetVirtualY;
+            window.scrollTo(0, currentVirtualY);
+            wheelAnimationFrame = 0;
+            return;
+          }
+
+          const elapsedSinceWheel = performance.now() - lastWheelTimestamp;
+          const smoothing = elapsedSinceWheel < 140 ? 0.072 : 0.052;
+
+          currentVirtualY += distance * smoothing;
+          window.scrollTo(0, currentVirtualY);
+          wheelAnimationFrame = window.requestAnimationFrame(animateWheelScroll);
+        };
+
+        const handleAnchorNavigation = (hash, updateHistory = true) => {
+          if (!hash || hash === "#") {
+            return;
+          }
+
+          const target = document.querySelector(hash);
+
+          if (!(target instanceof HTMLElement)) {
+            return;
+          }
+
+          if (reduceMotionQuery.matches) {
+            target.scrollIntoView({ block: "start" });
+          } else {
+            smoothScrollTo(target.offsetTop);
+          }
+
+          if (updateHistory && window.location.hash !== hash) {
+            window.history.pushState(null, "", hash);
+          }
+        };
+
+        const onDocumentClick = (event) => {
+          if (
+            event.defaultPrevented ||
+            event.button !== 0 ||
+            event.metaKey ||
+            event.ctrlKey ||
+            event.shiftKey ||
+            event.altKey
+          ) {
+            return;
+          }
+
+          const link = event.target instanceof Element
+            ? event.target.closest('a[href^="#"]')
+            : null;
+
+          if (!(link instanceof HTMLAnchorElement)) {
+            return;
+          }
+
+          const href = link.getAttribute("href");
+
+          if (!href) {
+            return;
+          }
+
+          event.preventDefault();
+          handleAnchorNavigation(href);
+        };
+
+        const onWheel = (event) => {
+          if (
+            reduceMotionQuery.matches ||
+            !wheelSmoothEnabled ||
+            event.ctrlKey ||
+            !event.cancelable
+          ) {
+            return;
+          }
+
+          event.preventDefault();
+          stopSmoothScroll();
+
+          if (event.deltaMode === 1) {
+            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * 28);
+          } else if (event.deltaMode === 2) {
+            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * window.innerHeight);
+          } else {
+            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY);
+          }
+
+          lastWheelTimestamp = performance.now();
+
+          if (!wheelAnimationFrame) {
+            currentVirtualY = window.scrollY;
+            wheelAnimationFrame = window.requestAnimationFrame(animateWheelScroll);
+          }
+        };
 
         let ticking = false;
 
@@ -66,8 +272,24 @@ const {
         };
 
         updateBackgroundState();
+        syncVirtualScroll();
+        document.addEventListener("click", onDocumentClick);
+        window.addEventListener("wheel", onWheel, { passive: false });
         window.addEventListener("scroll", requestUpdate, { passive: true });
-        window.addEventListener("resize", requestUpdate);
+        window.addEventListener("resize", () => {
+          targetVirtualY = clampScrollY(targetVirtualY);
+          currentVirtualY = clampScrollY(currentVirtualY);
+          requestUpdate();
+        });
+        window.addEventListener("hashchange", () => {
+          handleAnchorNavigation(window.location.hash, false);
+        });
+
+        if (window.location.hash) {
+          window.requestAnimationFrame(() => {
+            handleAnchorNavigation(window.location.hash, false);
+          });
+        }
       })();
     </script>
   </body>
