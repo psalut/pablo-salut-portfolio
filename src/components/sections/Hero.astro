@@ -2,10 +2,106 @@
 import { HeroContent } from "./HeroContent";
 ---
 
-<section id="home" class="section-spacing flex min-h-[100svh] items-center">
+<section id="home" class="hero-section section-spacing flex min-h-[100svh] items-center">
   <div class="section-container grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-
     <HeroContent client:load />
-
   </div>
+
+  <a href="#about" class="hero-scroll-indicator" aria-label="Ir hacia la siguiente seccion">
+    <span class="hero-scroll-indicator__chevron hero-scroll-indicator__chevron--top" aria-hidden="true"></span>
+    <span class="hero-scroll-indicator__chevron hero-scroll-indicator__chevron--bottom" aria-hidden="true"></span>
+  </a>
 </section>
+
+<style>
+  .hero-section {
+    position: relative;
+  }
+
+  .hero-scroll-indicator {
+    position: absolute;
+    left: 50%;
+    bottom: clamp(5.5rem, 4vh, 2.5rem);
+    z-index: 2;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.15rem;
+    padding: 0.5rem;
+    color: rgba(255, 255, 255, 0.96);
+    transform: translateX(-50%);
+    text-decoration: none;
+    filter: drop-shadow(0 0 10px rgba(255, 255, 255, 0.28));
+    transition:
+      opacity 180ms ease,
+      transform 180ms ease,
+      visibility 180ms ease;
+  }
+
+  .hero-scroll-indicator.is-hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translateX(-50%) translateY(0.5rem);
+  }
+
+  .hero-scroll-indicator__chevron {
+    width: 1.15rem;
+    height: 1.15rem;
+    border-right: 0.2rem solid currentColor;
+    border-bottom: 0.2rem solid currentColor;
+    transform: translate3d(0, 0, 0) rotate(45deg);
+    border-radius: 0.1rem;
+    animation: hero-scroll-pulse 1.8s ease-in-out infinite;
+    will-change: opacity, transform;
+  }
+
+  .hero-scroll-indicator__chevron--bottom {
+    opacity: 0.35;
+    animation-delay: 0.18s;
+  }
+
+  .hero-scroll-indicator:hover .hero-scroll-indicator__chevron,
+  .hero-scroll-indicator:focus-visible .hero-scroll-indicator__chevron {
+    opacity: 1;
+  }
+
+  .hero-scroll-indicator:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.55);
+    outline-offset: 0.35rem;
+    border-radius: 999px;
+  }
+
+  @keyframes hero-scroll-pulse {
+    0%,
+    100% {
+      opacity: 0.28;
+      transform: translate3d(0, 0, 0) rotate(45deg);
+    }
+
+    40% {
+      opacity: 1;
+      transform: translate3d(0, 0.2rem, 0) rotate(45deg);
+    }
+
+    70% {
+      opacity: 0.5;
+      transform: translate3d(0, 0.35rem, 0) rotate(45deg);
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .hero-scroll-indicator {
+      transition: opacity 180ms ease, visibility 180ms ease;
+    }
+
+    .hero-scroll-indicator.is-hidden {
+      transform: translateX(-50%);
+    }
+
+    .hero-scroll-indicator__chevron {
+      animation: none;
+      opacity: 0.8;
+    }
+  }
+</style>

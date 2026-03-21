@@ -67,6 +67,7 @@ const cvUrl = '/cv.pdf';
       (() => {
         const root = document.documentElement;
         const homeSection = document.getElementById("home");
+        const heroScrollIndicator = document.querySelector(".hero-scroll-indicator");
         const reduceMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
         if (!homeSection) {
@@ -253,12 +254,16 @@ const cvUrl = '/cv.pdf';
           const transitionDistance = Math.max(heroHeight * 0.7, 320);
           const progress = Math.min(scrollY / transitionDistance, 1);
           const eased = 1 - Math.pow(1 - progress, 3);
+          const shouldHideHeroIndicator = scrollY > Math.max(heroHeight * 0.2, 36);
 
           root.style.setProperty("--bg-blur", `${(4 + eased * 14).toFixed(2)}px`);
           root.style.setProperty("--bg-image-scale", `${(1 + eased * 0.04).toFixed(3)}`);
           root.style.setProperty("--bg-image-opacity", `${(1 - eased * 0.45).toFixed(3)}`);
           root.style.setProperty("--bg-shade-opacity", `${(0.18 + eased * 0.48).toFixed(3)}`);
           root.style.setProperty("--bg-grid-opacity", `${(0.08 - eased * 0.05).toFixed(3)}`);
+          if (heroScrollIndicator instanceof HTMLElement) {
+            heroScrollIndicator.classList.toggle("is-hidden", shouldHideHeroIndicator);
+          }
           ticking = false;
         };
 
