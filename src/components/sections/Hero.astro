@@ -1,80 +1,11 @@
 ---
+import { HeroContent } from "./HeroContent";
 ---
 
 <section id="home" class="section-spacing flex min-h-[100svh] items-center">
   <div class="section-container grid items-center gap-12 lg:grid-cols-[1.2fr_0.8fr]">
-    <div class="space-y-8">
-      <div class="inline-flex rounded-full border border-emerald-400/20 bg-emerald-400/10 px-4 py-2 text-sm text-emerald-300">
-        Disponible para proyectos freelance
-      </div>
 
-      <div class="space-y-4">
-        <p class="text-sm uppercase tracking-[0.3em] text-slate-400">
-          Frontend Developer
-        </p>
+    <HeroContent client:load />
 
-        <h1 class="max-w-4xl text-5xl font-semibold leading-tight md:text-7xl">
-          Construyo interfaces modernas, rápidas y pensadas para producto.
-        </h1>
-
-        <p class="max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
-          Soy TU_NOMBRE, desarrollador enfocado en frontend, experiencia de usuario
-          y aplicaciones web con criterio técnico y visual.
-        </p>
-      </div>
-
-      <div class="flex flex-wrap gap-4">
-        <a
-          href="#projects"
-          class="rounded-full bg-white px-6 py-3 text-sm font-semibold text-black transition hover:opacity-90"
-        >
-          Ver proyectos
-        </a>
-
-        <a
-          href="#experience"
-          class="rounded-full border border-white/15 px-6 py-3 text-sm font-semibold transition hover:border-white/30 hover:bg-white/5"
-        >
-          Mi experiencia
-        </a>
-      </div>
-
-      <div class="flex flex-wrap gap-6 text-sm text-slate-400">
-        <span>📍 Argentina</span>
-        <span>💼 Frontend / Full Stack</span>
-        <span>⚡ Angular · React · TypeScript</span>
-      </div>
-    </div>
-
-    <div class="card-surface rounded-3xl p-6">
-      <div class="space-y-6">
-        <div>
-          <p class="text-sm text-slate-400">Actualmente</p>
-          <p class="mt-2 text-2xl font-semibold">Desarrollando productos web con foco en UI</p>
-        </div>
-
-        <div class="grid gap-4 sm:grid-cols-2">
-          <div class="rounded-2xl border border-white/10 p-4">
-            <p class="text-sm text-slate-400">Especialidad</p>
-            <p class="mt-2 font-medium">Frontend engineering</p>
-          </div>
-
-          <div class="rounded-2xl border border-white/10 p-4">
-            <p class="text-sm text-slate-400">Stack</p>
-            <p class="mt-2 font-medium">Angular / React</p>
-          </div>
-
-          <div class="rounded-2xl border border-white/10 p-4">
-            <p class="text-sm text-slate-400">Enfoque</p>
-            <p class="mt-2 font-medium">UX + arquitectura</p>
-          </div>
-
-          <div class="rounded-2xl border border-white/10 p-4">
-            <p class="text-sm text-slate-400">Objetivo</p>
-            <p class="mt-2 font-medium">Freelance + productos</p>
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>

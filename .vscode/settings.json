@@ -2,6 +2,7 @@
     "conventionalCommits.scopes": [
         "navbar",
         "sections",
-        "ui"
+        "ui",
+        "hero"
     ]
 }
