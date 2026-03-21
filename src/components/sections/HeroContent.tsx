@@ -25,31 +25,32 @@ export function HeroContent() {
       <div className="space-y-2">
         <motion.p
           variants={item}
-          className="text-2xl md:text-3xl font-medium text-[#FF6B2D]/90 tracking-[0.09em]"
+          className="text-3xl md:text-4xl font-medium text-[#FF6B2D]/90 tracking-[0.09em]"
         >
           PABLO SALUT
         </motion.p>
 
         <motion.p
           variants={item}
-          className="mb-4 text-xs uppercase tracking-[0.3em] text-slate-400"
+          className="mb-8 text-sm uppercase tracking-[0.3em] text-slate-400"
         >
           Full Stack Developer
         </motion.p>
         
         <motion.h1
           variants={item}
-          className="mb-4 max-w-4xl text-2xl font-semibold leading-tight md:text-4xl"
+          className="mb-4 max-w-7xl text-3xl font-semibold leading-tight md:text-5xl"
         >
-          Diseño y desarrollo productos digitales con criterio, foco en la experiencia y solidez técnica.
+          Diseño y desarrollo de productos digitales sólidos, centrados en el usuario.
         </motion.h1>
 
         <motion.p
           variants={item}
-          className="max-w-2xl text-base leading-7 text-slate-300 md:text-lg"
+          className="max-w-2xl text-base leading-7 text-slate-300 md:text-xl"
         >
           Desde la arquitectura hasta la experiencia, cada decisión tiene intención.
         </motion.p>
+
       </div>
     </motion.div>
   );
