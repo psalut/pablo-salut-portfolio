@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import backgroundImage from '../assets/images/back.png';
+import Analytics from '@vercel/analytics/astro'
 
 interface Props {
   title?: string;
@@ -23,6 +24,7 @@ const cvUrl = '/cv.pdf';
     <meta name="description" content={description} />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{title}</title>
+    <Analytics />
   </head>
   <body class="text-white antialiased" style={`--page-bg-image: url(${backgroundImage.src});`}>
     <div class="page-background" aria-hidden="true">
