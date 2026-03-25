@@ -1,54 +1,166 @@
 ---
-const mockWork = [
+import workAccordionScript from '../../scripts/workAccordion.ts?url';
+
+const workItems = [
   {
-    period: '2024 - Present',
+    company: 'Randstad',
+    role: 'Full Stack Developer (Frontend Focused)',
+    period: 'Nov 2023 - Nov 2025',
+    summary:
+      'Participe en el desarrollo y evolución de productos internos y aplicaciones publicas, desempenandome como full stack developer con foco en frontend y arquitectura de interfaces.',
+    highlights: [
+      'Creación de un Design System reutilizable utilizando Lit y Web Components.',
+      'Estandarización de UI entre multiples productos internos.',
+      'Desarrollo de herramientas internas utilizadas por distintos equipos.',
+      'Desarrollo de aplicación accesible a usuarios finales.',
+      'Modernización de aplicaciones legacy mediante actualización a versiones recientes de Angular.',
+      'Participación en decisiones de arquitectura frontend y reutilización de componentes.',
+    ],
+    tech: ['Angular', 'TypeScript', 'Node.js', 'Express', 'Lit', 'Web Components'],
+    open: false,
+  },
+  {
+    company: 'Kretz S.A. (Freelance)',
     role: 'Frontend Developer',
-    company: 'Current Company',
-    description:
-      'Working on modern web interfaces, reusable UI patterns and product-oriented frontend development.',
+    period: 'Sep 2022 - May 2023',
+    summary:
+      'Desarrollo freelance de aplicación web orientada a la gestion y comunicacion con dispositivos industriales.',
+    highlights: [
+      'Desarrollo de aplicación web con Angular.',
+      'Implementación de interfaces modernas y responsivas.',
+      'Integración con APIs y servicios backend.',
+      'Mejora de experiencia de usuario en herramientas internas.',
+      'Organización y reutilización de componentes frontend.',
+    ],
+    tech: ['Angular', 'TypeScript', 'REST APIs', 'CSS', 'Responsive Design'],
+    open: false,
   },
   {
-    period: '2023 - 2024',
-    role: 'Frontend / Full Stack Developer',
-    company: 'Previous Company',
-    description:
-      'Built and maintained web applications with focus on Angular, APIs and technical scalability.',
+    company: 'Devcube / Agrohub',
+    role: 'Full Stack Developer',
+    period: 'Jul 2021 - Sep 2022',
+    summary:
+      'Participe en el desarrollo de Agrohub, una plataforma web y mobile orientada a la gestion para productores agropecuarios, trabajando en frontend, backend y desarrollo mobile.',
+    highlights: [
+      'Desarrollo full stack de aplicación web y mobile.',
+      'Desarrollo de landing page del producto.',
+      'Integración con APIs y lógica backend.',
+      'Participación en arquitectura de la aplicación.',
+      'Trabajo en metodologías agiles.',
+    ],
+    tech: ['Angular', 'TypeScript', 'Node.js', 'MongoDB', 'Ionic', 'REST APIs'],
+    open: false,
   },
   {
-    period: '2022 - 2023',
-    role: 'Junior Developer',
-    company: 'Earlier Work',
-    description:
-      'Started professional work delivering features, fixing issues and learning production workflows.',
+    company: 'Ingenea S.R.L.',
+    role: 'Full Stack Developer',
+    period: 'Sep 2017 - Mar 2021',
+    summary:
+      'Desarrollo de aplicaciones web y mobile para grandes empresas, incluyendo sistemas de seguimiento satelital y plataformas internas.',
+    highlights: [
+      'Desarrollo de aplicaciones enterprise.',
+      'Proyectos para empresas como La Virginia y Ternium.',
+      'Desarrollo mobile con Ionic.',
+      'Participación en procesos de calidad y trabajo en equipo agil.',
+    ],
+    tech: ['Angular', 'Vue', 'TypeScript', 'Ionic', 'Node.js', 'MySQL', 'MongoDB'],
+    open: false,
   },
 ];
+
+type WorkItem = (typeof workItems)[number];
 ---
 
 <section id="work" class="section-spacing">
   <div class="section-container space-y-10">
     <div class="space-y-4">
       <p class="text-sm uppercase tracking-[0.3em] text-slate-400">Work</p>
-      <h2 class="text-3xl font-semibold md:text-5xl">Work</h2>
-      <p class="max-w-2xl text-base leading-7 text-slate-300">
-        This section will replace the original “Latest posts” area with a more relevant
-        professional history block.
+      <h2 class="m-0 text-3xl font-semibold leading-none tracking-tight text-[#ff6b2d] md:text-5xl">
+        Professional <span class="text-white">Experience</span>
+      </h2>
+      <p class="max-w-2xl text-base leading-7 text-slate-300 md:text-lg">
+        Mi recorrido profesional en productos donde combine frontend, backend y decisiones de
+        arquitectura con foco en producto real.
       </p>
     </div>
 
-    <div class="grid gap-6">
-      {mockWork.map((item) => (
-        <article class="card-surface rounded-3xl p-6 md:p-8">
-          <div class="grid gap-4 md:grid-cols-[180px_1fr]">
-            <div class="text-sm font-medium text-slate-400">{item.period}</div>
-
-            <div class="space-y-3">
-              <h3 class="text-2xl font-semibold">
-                {item.role} · <span class="text-slate-400">{item.company}</span>
+    <div class="space-y-5">
+      {workItems.map((item: WorkItem, index: number) => (
+        <article
+          class={`work-item group overflow-hidden rounded-[1.75rem] border border-white/8 bg-[linear-gradient(180deg,rgba(18,24,38,0.92)_0%,rgba(12,17,28,0.9)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_22px_50px_rgba(2,6,23,0.26)] ${item.open ? 'is-open' : ''}`}
+        >
+          <button
+            type="button"
+            class="work-item__summary grid w-full cursor-pointer items-center gap-6 border-0 bg-transparent px-7 pb-4 pt-5 text-left text-inherit max-[720px]:grid-cols-1 max-[720px]:gap-[1.2rem] max-[720px]:p-[1.35rem]"
+            aria-expanded={item.open ? 'true' : 'false'}
+            aria-controls={`work-panel-${index}`}
+          >
+            <div class="min-w-0">
+              <h3 class="m-0 text-xl font-bold leading-tight text-white md:text-2xl">
+                {item.company}
               </h3>
+              <p class="mb-0 mt-[0.7rem] text-base font-semibold text-slate-300">{item.role}</p>
+            </div>
 
-              <p class="max-w-2xl text-base leading-7 text-slate-300">
-                {item.description}
-              </p>
+            <div class="flex items-center gap-4 pl-4 max-[720px]:justify-between max-[720px]:pl-0">
+              <span class="whitespace-nowrap text-base font-medium text-[#a8b0c2]">{item.period}</span>
+              <span
+                class="work-item__chevron inline-flex h-10 w-10 items-center justify-center rounded-full border border-white/6 bg-white/3 text-slate-300"
+                aria-hidden="true"
+              >
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path
+                    d="M7 10L12 15L17 10"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  ></path>
+                </svg>
+              </span>
+            </div>
+          </button>
+
+          <div
+            class="work-item__content"
+            id={`work-panel-${index}`}
+            {...(!item.open ? { hidden: true } : {})}
+          >
+            <div class="work-item__content-inner">
+              <div class="space-y-7">
+                <div class="space-y-3">
+                  <p class="text-xs font-semibold uppercase tracking-[0.26em] text-[#ffb08f]">
+                    Role
+                  </p>
+                  <p class="text-xl font-semibold text-white md:text-2xl">{item.role}</p>
+                  <p class="max-w-4xl text-base leading-8 text-slate-300 md:text-lg">
+                    {item.summary}
+                  </p>
+                </div>
+
+                <div class="space-y-3">
+                  <h4 class="text-xl font-semibold text-white">Highlights</h4>
+                  <ul class="m-0 grid gap-2.5 p-0 text-base leading-7 text-slate-200">
+                    {item.highlights.map((highlight: WorkItem['highlights'][number]) => (
+                      <li class="flex items-start gap-3">
+                        <span class="work-item__dot mt-2.5" aria-hidden="true"></span>
+                        <span>{highlight}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div class="space-y-3">
+                  <h4 class="text-xl font-semibold text-white">Tech</h4>
+                  <div class="flex flex-wrap gap-3">
+                    {item.tech.map((tech: WorkItem['tech'][number]) => (
+                      <span class="inline-flex items-center rounded-full border border-[#ff6b2d]/16 bg-[#ff6b2d]/8 px-4 py-3 text-sm font-semibold text-[#ffc2a9]">
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
         </article>
@@ -56,3 +168,106 @@ const mockWork = [
     </div>
   </div>
 </section>
+
+<script type="module" src={workAccordionScript}></script>
+
+<style>
+  .work-item {
+    transition:
+      border-color 420ms ease,
+      box-shadow 420ms ease,
+      background-color 420ms ease;
+  }
+
+  .work-item:hover,
+  .work-item:has(.work-item__summary:focus-visible) {
+    border-color: rgba(255, 107, 45, 0.32);
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.05),
+      0 0 0 1px rgba(255, 107, 45, 0.12),
+      0 22px 50px rgba(2, 6, 23, 0.3);
+  }
+
+  .work-item.is-open {
+    border-color: rgba(255, 107, 45, 0.24);
+    background:
+      linear-gradient(180deg, rgba(20, 26, 40, 0.96) 0%, rgba(10, 14, 24, 0.95) 100%);
+  }
+
+  .work-item__summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .work-item__chevron {
+    transition:
+      transform 460ms ease,
+      color 460ms ease,
+      border-color 460ms ease,
+      background-color 460ms ease;
+  }
+
+  .work-item__chevron svg {
+    width: 1.1rem;
+    height: 1.1rem;
+  }
+
+  .work-item.is-open .work-item__chevron {
+    transform: rotate(180deg);
+    color: #ffb08f;
+    border-color: rgba(255, 107, 45, 0.18);
+    background: rgba(255, 107, 45, 0.08);
+  }
+
+  .work-item__content {
+    height: 0;
+    overflow: hidden;
+    transition: height 620ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .work-item__content-inner {
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    padding: 0 1.75rem;
+    transition:
+      padding-top 520ms cubic-bezier(0.22, 1, 0.36, 1),
+      padding-bottom 520ms cubic-bezier(0.22, 1, 0.36, 1);
+  }
+
+  .work-item.is-open .work-item__content-inner {
+    padding-top: 1.9rem;
+    padding-bottom: 2rem;
+  }
+
+  .work-item__dot {
+    display: inline-block;
+    width: 0.42rem;
+    height: 0.42rem;
+    flex: 0 0 auto;
+    border-radius: 999px;
+    background: #ff8c5a;
+    box-shadow: 0 0 0 0.18rem rgba(255, 107, 45, 0.1), 0 0 0.7rem rgba(255, 107, 45, 0.16);
+  }
+
+  @media (max-width: 720px) {
+    .work-item__summary {
+      grid-template-columns: 1fr;
+    }
+
+    .work-item__content-inner {
+      padding-inline: 1.35rem;
+    }
+
+    .work-item.is-open .work-item__content-inner {
+      padding-top: 1.5rem;
+      padding-bottom: 1.55rem;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .work-item,
+    .work-item__chevron,
+    .work-item__content,
+    .work-item__content-inner {
+      transition: none;
+    }
+  }
+</style>
