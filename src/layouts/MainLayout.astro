@@ -80,6 +80,7 @@ const cvUrl = '/cv.pdf';
         let targetVirtualY = window.scrollY;
         let lastWheelTimestamp = 0;
         const wheelSmoothEnabled = window.matchMedia("(pointer: fine)").matches;
+        const wheelDeltaMultiplier = 1.9;
 
         const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3);
         const easeOutQuint = (value) => 1 - Math.pow(1 - value, 5);
@@ -117,6 +118,9 @@ const cvUrl = '/cv.pdf';
           const startY = window.scrollY;
           const clampedTargetY = clampScrollY(targetY);
           const distance = clampedTargetY - startY;
+
+          currentVirtualY = startY;
+          targetVirtualY = clampedTargetY;
 
           if (Math.abs(distance) < 1) {
             window.scrollTo(0, clampedTargetY);
@@ -158,7 +162,7 @@ const cvUrl = '/cv.pdf';
           }
 
           const elapsedSinceWheel = performance.now() - lastWheelTimestamp;
-          const smoothing = elapsedSinceWheel < 140 ? 0.072 : 0.052;
+          const smoothing = elapsedSinceWheel < 140 ? 0.16 : 0.11;
 
           currentVirtualY += distance * smoothing;
           window.scrollTo(0, currentVirtualY);
@@ -229,13 +233,14 @@ const cvUrl = '/cv.pdf';
 
           event.preventDefault();
           stopSmoothScroll();
+          syncVirtualScroll();
 
           if (event.deltaMode === 1) {
-            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * 28);
+            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * 28 * wheelDeltaMultiplier);
           } else if (event.deltaMode === 2) {
-            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * window.innerHeight);
+            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * window.innerHeight * wheelDeltaMultiplier);
           } else {
-            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY);
+            targetVirtualY = clampScrollY(targetVirtualY + event.deltaY * wheelDeltaMultiplier);
           }
 
           lastWheelTimestamp = performance.now();
