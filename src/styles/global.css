@@ -98,7 +98,7 @@ section,
 }
 
 .section-container {
-  @apply mx-auto w-full max-w-7xl px-1 md:px-1;
+  @apply mx-auto w-full max-w-7xl px-5 sm:px-6 lg:px-8;
 }
 
 .section-spacing {
@@ -169,17 +169,18 @@ section,
   }
 
   .fixed-top-actions {
-    top: 1rem;
-    right: 1rem;
-    left: 1rem;
+    position: absolute;
+    top: 1.25rem;
+    right: 1.25rem;
+    left: auto;
     width: auto;
   }
 
   .fixed-top-actions__button {
-    flex: 1 1 13.5rem;
+    flex: 0 0 auto;
     justify-content: center;
-    padding-inline: 1.15rem;
-    font-size: 0.92rem;
+    padding: 0.9rem 1.3rem;
+    font-size: 0.88rem;
   }
 
 }

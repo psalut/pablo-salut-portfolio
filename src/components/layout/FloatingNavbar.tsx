@@ -144,15 +144,15 @@ export default function FloatingNavbar() {
   }, [activeSection]);
 
   return (
-    <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 px-4">
+    <div className="fixed bottom-4 left-1/2 z-50 -translate-x-1/2 px-5 sm:px-4">
       <nav
         ref={navRef}
         aria-label="Primary"
-        className="relative flex max-w-max items-center gap-1 rounded-full border border-white/8 bg-black/40 p-1.5 shadow-[0_8px_20px_rgba(0,0,0,0.24)] backdrop-blur-xl"
+        className="relative flex max-w-max items-center gap-2 rounded-full border border-white/8 bg-black/40 p-2.5 shadow-[0_8px_20px_rgba(0,0,0,0.24)] backdrop-blur-xl sm:gap-1 sm:p-1.5"
       >
         <motion.span
           aria-hidden="true"
-          className="absolute top-1.5 left-0 h-7 rounded-full bg-white"
+          className="absolute top-2.5 left-0 h-10 rounded-full bg-white sm:top-1.5 sm:h-7"
           animate={{
             x: highlightStyle.x,
             width: highlightStyle.width,
@@ -177,7 +177,7 @@ export default function FloatingNavbar() {
               }}
               href={`#${item.id}`}
               aria-current={isActive ? "page" : undefined}
-              className="relative z-10 flex h-7 w-[38px] items-center justify-center overflow-hidden rounded-full text-xs font-medium leading-none transition-colors duration-200 sm:w-[94px] sm:px-3"
+              className="relative z-10 flex h-10 w-[50px] items-center justify-center overflow-hidden rounded-full text-sm font-medium leading-none transition-colors duration-200 sm:h-7 sm:w-[94px] sm:px-3 sm:text-xs"
             >
               <span
                 className={[
@@ -187,7 +187,7 @@ export default function FloatingNavbar() {
                     : "text-slate-400 hover:text-slate-200",
                 ].join(" ")}
               >
-                <Icon size={14} strokeWidth={1.65} />
+                <Icon size={17} strokeWidth={1.8} />
                 <span className="hidden sm:inline">{item.label}</span>
               </span>
             </a>
