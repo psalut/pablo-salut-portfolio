@@ -14,7 +14,8 @@ const {
 } = Astro.props;
 
 const sourceCodeUrl = 'https://github.com/psalut';
-const cvUrl = '/cv.pdf';
+const cvUrl = '/CV-Pablo-Salut.pdf';
+const cvDownloadName = 'CV-Pablo-Salut.pdf';
 ---
 
 <!doctype html>
@@ -38,7 +39,7 @@ const cvUrl = '/cv.pdf';
       <a
         class="fixed-top-actions__button"
         href={cvUrl}
-        download
+        download={cvDownloadName}
       >
         <span>Descargar CV</span>
         <svg viewBox="0 0 24 24" aria-hidden="true">
