@@ -1,6 +1,7 @@
 ---
 import vetAndCookImage from '../../assets/images/vetandcook.webp';
 import skillsTrackerImage from '../../assets/images/skillstracker.webp';
+import footballAIAssistantImage from '../../assets/images/football-ai.webp';
 import portfolioImage from '../../assets/images/portfolio.webp';
 
 const projects = [
@@ -27,6 +28,16 @@ const projects = [
   },
   {
     number: '03',
+    title: 'Football AI Coach Assistant',
+    eyebrow: 'AI Product',
+    description:
+      'Asistente inteligente para entrenadores que analiza planteles, formaciones y estilos de juego para generar el once ideal, suplentes y recomendaciones tácticas utilizando inteligencia artificial. La aplicación combina lógica táctica, análisis de atributos y generación con IA para asistir en la toma de decisiones futbolísticas de forma rápida y fundamentada.',
+    stack: ['Angular', 'NestJS', 'OpenAI', 'Apexcharts'],
+    image: footballAIAssistantImage,
+    liveUrl: 'https://football-ai-assistant-web.vercel.app/',
+  },
+    {
+    number: '04',
     title: 'Portfolio Website',
     eyebrow: 'Personal Brand',
     description:
@@ -66,8 +77,8 @@ const projects = [
             <span class="projects-item__connector" aria-hidden="true"></span>
 
             <div class="projects-card card-surface relative overflow-hidden rounded-[2rem] border border-white/6 bg-[linear-gradient(135deg,rgba(15,23,42,0.7)_0%,rgba(15,23,42,0.42)_45%,rgba(17,24,39,0.28)_100%)] p-3 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-[border-color,box-shadow,background-color,transform] duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:border-[#ff6b2d]/70 group-hover/item:shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_0_0_1px_rgba(255,107,45,0.18),0_0_24px_rgba(255,107,45,0.14)] md:p-5">
-              <div class={`relative grid items-center gap-6 min-[960px]:grid-cols-[minmax(0,0.96fr)_minmax(19rem,0.82fr)] min-[960px]:gap-7 ${index === 1 ? 'min-[960px]:grid-cols-[minmax(19rem,0.82fr)_minmax(0,0.96fr)]' : ''}`}>
-                <div class={`min-w-0 ${index === 1 ? 'min-[960px]:order-2' : ''}`}>
+              <div class={`relative grid items-center gap-6 min-[960px]:grid-cols-[minmax(0,0.96fr)_minmax(19rem,0.82fr)] min-[960px]:gap-7 ${index === 1 || index === 3 ? 'min-[960px]:grid-cols-[minmax(19rem,0.82fr)_minmax(0,0.96fr)]' : ''}`}>
+                <div class={`min-w-0 ${index === 1 || index === 3 ? 'min-[960px]:order-2' : ''}`}>
                   <div class="overflow-hidden rounded-[1.2rem] border border-white/8 bg-[linear-gradient(180deg,rgba(17,24,39,0.96)_0%,rgba(15,23,42,0.96)_100%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.04),0_18px_42px_rgba(2,6,23,0.4)] transition-[box-shadow,border-color,background-color,transform] duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:border-[#ff6b2d]/70 group-hover/item:shadow-[inset_0_1px_0_rgba(255,255,255,0.05),0_0_0_1px_rgba(255,107,45,0.18)]">
                     <img
                       src={project.image.src}
@@ -81,7 +92,7 @@ const projects = [
                   </div>
                 </div>
 
-                <div class={`flex min-h-full min-w-0 flex-col justify-between gap-5 py-1 ${index === 1 ? 'min-[960px]:order-1' : ''}`}>
+                <div class={`flex min-h-full min-w-0 flex-col justify-between gap-5 py-1 ${index === 1 || index === 3 ? 'min-[960px]:order-1' : ''}`}>
                   <div class="space-y-4">
                     <span class="inline-block text-3xl font-bold leading-none tracking-tight text-[#ff6b2d]/20 transition-colors duration-[1000ms] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover/item:text-[#ff6b2d]/35 md:text-5xl">
                       {project.number}
